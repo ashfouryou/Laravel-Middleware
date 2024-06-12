@@ -12,11 +12,24 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware(['check.authenticated'])->group(function () {
+    Route::get('/dashboard', function () {
+        return 'Welcome to your Dashboard';
+    });
 
-Route::get('/', function () {
-    return view('welcome');
+    Route::get('/profile', function () {
+        return 'This is your profile';
+    });
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 });
+
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
